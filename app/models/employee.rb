@@ -13,4 +13,8 @@ class Employee < ApplicationRecord
   def full_address
     "#{address_line_1} #{city}, #{state}, #{country}, #{pincode}".strip
   end
+
+  def name_with_email
+    "#{name}(#{personal_email})"
+  end
 end

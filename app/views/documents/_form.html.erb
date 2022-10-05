@@ -1,0 +1,40 @@
+<%= form_with model: document do |form| %>
+  <div class="row">
+    <div class="col-lg-4">
+      <div class="form-group">
+        <%= form.label :name, class: 'mb-2' %>
+        <%= form.text_field :name, class: 'form-control form-control-lg rounded-0' %>
+        <% document.errors.full_messages_for(:name).each do |message| %>
+          <p class="text-danger"><%= message %></p>
+        <% end %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :doc_type, class: 'mb-2' %>
+        <%= form.select :doc_type, options_for_select(Document::DOC_TYPES, selected: document.doc_type), {prompt: 'Select document type'}, { class: 'form-select form-select-lg rounded-0' } %>
+        <% document.errors.full_messages_for(:doc_type).each do |message| %>
+          <p class="text-danger"><%= message %></p>
+        <% end %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :employee_id, class: 'mb-2' %>
+        <%= form.select :employee_id, options_for_select(Employee.all.map {|employee| [employee.name_with_email, employee.id]}, selected: document.employee_id), {prompt: 'Select employee'}, { class: 'form-select form-select-lg rounded-0' } %>
+        <% document.errors.full_messages_for(:employee_id).each do |message| %>
+          <p class="text-danger"><%= message %></p>
+        <% end %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :image, class: 'mb-2' %><br>
+        <%= form.file_field :image %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 mt-4">
+        <%= form.submit class: 'btn btn-primary btn-lg rounded-0' %>
+        <%= link_to "Back to Documents", documents_path, class: "btn btn-outline-primary btn-lg rounded-0" %>
+      </div>
+    </div>
+  </div>
+<% end %>
