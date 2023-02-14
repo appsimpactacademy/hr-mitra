@@ -6,20 +6,43 @@
         <div class="col-lg-6">
           <h3 class="mb-3">Personal Information</h3>
           <p class="lead"><strong>First Name:</strong> <%= @employee.first_name %></p>
-          <p class="lead"><strong>Middle Name:</strong> <%= @employee.middle_name.present? ? @employee.middle_name : '--NA--' %></p>
           <p class="lead"><strong>Last Name:</strong> <%= @employee.last_name %></p>
           <p class="lead"><strong>Personal Email:</strong> <%= @employee.personal_email %></p>
         </div>
         <div class="col-lg-6">
           <h3 class="mb-3">Address Information</h3>
           <p class="lead"><strong>Address Line 1:</strong> <%= @employee.address_line_1 %></p>
-          <p class="lead"><strong>Address Line 2:</strong> <%= @employee.address_line_2.present? ? @employee.address_line_2 : '--NA--' %></p>
           <p class="lead"><strong>City:</strong> <%= @employee.city %></p>
           <p class="lead"><strong>State:</strong> <%= @employee.state %></p>
           <p class="lead"><strong>Country:</strong> <%= @employee.country %></p>
           <p class="lead"><strong>Pincode:</strong> <%= @employee.pincode %></p>
         </div>
       </div>
+
+      <% if @employee.documents.present? %>
+        <div class="row mt-5">
+          <h2 class="text-center">Employee Documents</h2>
+          <% @employee.documents.each do |document| %>
+            <div class="card mb-4">
+              <div class="card-body">
+                <div class="row">
+                  <% if document.image.attached? %>
+                    <div class="col-lg-4">
+                      <%= image_tag document.image, class: 'img-fluid'  %>
+                    </div>
+                  <% end %>
+                  <div class="col-lg-4">
+                    <p class="lead"><%= document.name %></p>
+                  </div>
+                  <div class="col-lg-4">
+                    <p class="lead"><%= document.doc_type %></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
       <%= link_to 'Back to Employees', employees_path, class: 'btn btn-outline-primary btn-lg rounded-0' %>
       <%= link_to 'Edit Employee', edit_employee_path(@employee), class: 'btn btn-primary btn-lg rounded-0' %>
     </div>

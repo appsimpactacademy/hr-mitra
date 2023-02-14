@@ -20,7 +20,7 @@
         <tr>
           <td><%= document.name %></td>
           <td><%= document.doc_type %></td>
-          <td><%= document.employee.name %></td>
+          <td><%= link_to document.employee.name, employee_path(document.employee) %></td>
           <td>
             <div class="dropdown">
               <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
