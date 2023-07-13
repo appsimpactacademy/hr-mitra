@@ -1,5 +1,5 @@
 class EmployeesController < ApplicationController
-  before_action :set_employee, only: [:edit, :update, :show, :destroy]
+  before_action :set_employee, only: [:edit, :update, :show, :destroy, :download_profile]
 
   def index
     @employees = Employee.all
@@ -36,6 +36,13 @@ class EmployeesController < ApplicationController
     if @employee.destroy
       redirect_to employees_path, notice: 'Employee has been deleted successfully'
     end
+  end
+
+  def download_profile
+    pdf = Prawn::Document.new
+    pdf.text 'Employee Profile', size: 30, style: :bold
+    pdf.text "Name: #{@employee.name}"
+    send_data pdf.render, filename: 'employee_profile.pdf', type: 'application/pdf', disposition: 'inline'
   end
 
   private
